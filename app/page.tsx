@@ -41,25 +41,22 @@ export default function Home() {
 
     <div className="min-h-screen bg-background text-foreground">
       {/* Navbar */}
-      {/* Navbar */}
-<nav className="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-md shadow-md">
+     <nav className="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-md shadow-md">
   <div className="max-w-7xl mx-auto px-6 md:px-8">
-    <div className="flex items-center justify-between h-26"> {/* increased height */}
-      
-      {/* Logo + brand */}
+    <div className="flex items-center justify-between h-20"> {/* FIXED height */}
+
+      {/* Logo */}
       <div className="flex items-center gap-3">
         <Image
           src="/agrivyn-logo.jpeg"
           alt="Agrivyn"
-          width={140}  // adjust width as needed
-          height={40}  // adjust height as needed
-          priority     // for above-the-fold logo; optional but fine
+          width={140}
+          height={40}
+          priority
         />
-        {/* Optional small tagline next to logo */}
-        {/* <span className="text-sm font-semibold text-green-700">Rooted in Nature</span> */}
       </div>
 
-      {/* Menu links */}
+      {/* Desktop Menu */}
       <div className="hidden md:flex items-center gap-8 text-lg font-medium text-gray-700">
         <a href="#home" className="hover:text-green-600">Home</a>
         <a href="#about" className="hover:text-green-600">About</a>
@@ -67,7 +64,7 @@ export default function Home() {
         <a href="#benefits" className="hover:text-green-600">Benefits</a>
       </div>
 
-      {/* WhatsApp or Order button */}
+      {/* Desktop Button */}
       <div className="hidden md:flex">
         <button
           onClick={handleWhatsAppClick}
@@ -77,15 +74,40 @@ export default function Home() {
         </button>
       </div>
 
-      {/* Mobile menu toggle (if you have one) */}
-      <div className="md:hidden">
-        {/* your existing mobile menu button/icon */}
-      </div>
+      {/* Mobile Menu Button */}
+      <button
+        className="md:hidden text-3xl"
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+      >
+        ☰
+      </button>
 
     </div>
+
+    {/* Mobile Dropdown Menu */}
+    {mobileMenuOpen && (
+      <div className="md:hidden bg-white shadow-lg rounded-xl mt-4 p-6 space-y-4 text-center text-lg font-medium">
+
+        <a href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a>
+        <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
+        <a href="#products" onClick={() => setMobileMenuOpen(false)}>Products</a>
+        <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+
+        <button
+          onClick={() => {
+            handleWhatsAppClick();
+            setMobileMenuOpen(false);
+          }}
+          className="bg-green-600 text-white px-6 py-3 rounded-full w-full mt-2"
+        >
+          Order on WhatsApp
+        </button>
+
+      </div>
+    )}
+
   </div>
 </nav>
-
       {/* Hero Section */}
      {/* Hero Section */}
 <section id="home" className="relative h-screen overflow-hidden flex items-center justify-center text-white">
