@@ -85,26 +85,42 @@ export default function Home() {
     </div>
 
     {/* Mobile Dropdown Menu */}
-    {mobileMenuOpen && (
-      <div className="md:hidden bg-white shadow-lg rounded-xl mt-4 p-6 space-y-4 text-center text-lg font-medium">
+   {mobileMenuOpen && (
+  <div className="md:hidden bg-white shadow-lg rounded-2xl mt-4 p-6">
 
-        <a href="#home" onClick={() => setMobileMenuOpen(false)}>Home</a>
-        <a href="#about" onClick={() => setMobileMenuOpen(false)}>About</a>
-        <a href="#products" onClick={() => setMobileMenuOpen(false)}>Products</a>
-        <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+    <div className="flex flex-col items-center space-y-5 text-lg font-semibold text-gray-700">
 
-        <button
-          onClick={() => {
-            handleWhatsAppClick();
-            setMobileMenuOpen(false);
-          }}
-          className="bg-green-600 text-white px-6 py-3 rounded-full w-full mt-2"
-        >
-          Order on WhatsApp
-        </button>
+      <a href="#home" onClick={() => setMobileMenuOpen(false)}>
+        Home
+      </a>
 
-      </div>
-    )}
+      <a href="#about" onClick={() => setMobileMenuOpen(false)}>
+        About
+      </a>
+
+      <a href="#products" onClick={() => setMobileMenuOpen(false)}>
+        Products
+      </a>
+
+      <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>
+        Benefits
+      </a>
+
+      {/* Button */}
+      <button
+        onClick={() => {
+          handleWhatsAppClick();
+          setMobileMenuOpen(false);
+        }}
+        className="bg-green-600 text-white px-6 py-3 rounded-full w-full mt-4"
+      >
+        Order on WhatsApp
+      </button>
+
+    </div>
+
+  </div>
+)}
 
   </div>
 </nav>
