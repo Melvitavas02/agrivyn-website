@@ -124,6 +124,11 @@ export default function Home() {
 
   </div>
 </nav>
+
+
+
+
+
       {/* Hero Section */}
      {/* Hero Section */}
 <section id="home" className="relative h-screen overflow-hidden flex items-center justify-center text-white">
@@ -175,8 +180,13 @@ export default function Home() {
   </div>
 </section>
 
-      {/* About Section */}
-    {/* Welcome + About Section */}
+
+
+
+      
+
+
+
 {/* Welcome + About Section */}
 <section id="about" className="py-24 bg-gradient-to-b from-background to-green-50">
 
@@ -388,6 +398,65 @@ export default function Home() {
 </section>
 
 
+<section className="bg-green-900 overflow-hidden">
+
+  <div className="whitespace-nowrap py-10"> {/* increased height */}
+
+    <div className="animate-marquee flex items-center gap-20 text-white text-xl md:text-2xl font-semibold tracking-wide">
+
+      <span>🌿 Rooted in Nature</span>
+      <span>🌱 Driven by Growth</span>
+      <span>🌾 Pure Soil. Pure Growth</span>
+      <span>🌿 Grow Naturally</span>
+      <span>🌍 Healthy Soil, Healthy Life</span>
+
+      {/* repeat */}
+      <span>🌿 Rooted in Nature</span>
+      <span>🌱 Driven by Growth</span>
+      <span>🌾 Pure Soil. Pure Growth</span>
+      <span>🌿 Grow Naturally</span>
+      <span>🌍 Healthy Soil, Healthy Life</span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="products" className="py-24 bg-gray-50">
+
+  <div className="max-w-5xl mx-auto px-6 text-center">
+
+    {/* Heading */}
+    <h2 className="text-3xl md:text-4xl tracking-[0.2em] text-gray-600 mb-10">
+      FEATURED PRODUCTS
+    </h2>
+
+    {/* Sub Text */}
+    <p className="inline-block text-lg md:text-xl text-gray-600 font-medium ">
+      New products are coming soon!
+    </p>
+
+  </div>
+
+</section>
 
 
 
@@ -402,6 +471,9 @@ export default function Home() {
       >
         <MessageCircle className="w-6 h-6" />
       </button>
+
+
+
 
       {/* Footer */}
    <footer className="bg-[#3f4a3c] text-gray-200 py-16">
