@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useScroll, useTransform } from "framer-motion";
+import { motion,Variants } from "framer-motion";
+
 import { FaWhatsapp } from "react-icons/fa";
 import {
   Leaf,
@@ -51,20 +51,53 @@ export default function Home() {
       image: "/mixsand.webp"
     }
   ];
-
-const slideLeft = {
+const slideLeft: Variants= {
   hidden: { opacity: 0, x: -80 },
-  visible: { opacity: 1, x: 0 }
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut"
+    }
+  }
 };
 
-const slideRight = {
+const slideRight: Variants = {
   hidden: { opacity: 0, x: 80 },
-  visible: { opacity: 1, x: 0 }
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+      delay: 0.2   // 🔥 slight delay for premium feel
+    }
+  }
 };
 
-const slideUp = {
+const slideUp: Variants = {
   hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0 }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
 };
   useEffect(() => {
     const interval = setInterval(() => {
@@ -275,66 +308,74 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
   initial="hidden"
   whileInView="visible"
   viewport={{ once: true }}
-  className="py-24 bg-gradient-to-b from-background to-green-50"
+  transition={{ staggerChildren: 0.2 }}
+  className="py-24 scroll-mt-24 bg-gradient-to-b from-background to-green-50"
 >
-
   <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
     {/* LEFT CONTENT */}
-    <div>
+    <motion.div
+  variants={slideLeft}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+>
 
-      {/* Small Title */}
-   <h3 className="text-green-600 uppercase tracking-[0.3em] text-sm mb-4">
-  Welcome to Agrivyn
-</h3>
+      <motion.h3
+        variants={slideUp}
+        className="text-green-600 uppercase tracking-[0.3em] text-sm mb-4"
+      >
+        Welcome to Agrivyn
+      </motion.h3>
 
-<h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 leading-tight">
-  Complete Organic Growing Solutions
-  <br />
-  <span className="text-green-600">for Healthy Plants & Soil</span>
-</h2>
+      <motion.h2
+        variants={slideUp}
+        className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight"
+      >
+        Complete Organic Growing Solutions
+        <br />
+        <span className="text-green-600">
+          for Healthy Plants & Soil
+        </span>
+      </motion.h2>
 
-<p className="text-lg text-muted-foreground mb-5 leading-relaxed">
-  Agrivyn provides high-quality organic products including vermicompost,
-  red soil, earthworms, and potting mix essentials. Our solutions are
-  designed to improve soil fertility, support natural plant growth,
-  and promote sustainable farming practices.
-</p>
+      <motion.p variants={slideUp} className="text-lg mb-5">
+        Agrivyn provides high-quality organic products including vermicompost,
+        red soil, earthworms, and potting mix essentials.
+      </motion.p>
 
-<p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-  Whether you are a farmer, home gardener, or nursery owner, our products
-  help you grow stronger, healthier plants while maintaining long-term
-  soil health naturally and effectively.
-</p>
+      <motion.p variants={slideUp} className="text-lg mb-8">
+        Whether you are a farmer, home gardener, or nursery owner, our products
+        help you grow stronger, healthier plants.
+      </motion.p>
 
-      {/* Highlights Cards */}
+      {/* CARDS (ANIMATED) */}
       <div className="grid grid-cols-2 gap-5">
+  {["100% Organic", "Chemical Free", "Nutrient Rich", "Improves Yield"].map((item, i) => (
+    <motion.div
+      key={i}
+      variants={slideUp}
+      whileHover={{ scale: 1.05 }}
+      className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition"
+    >
+      <p className="text-green-600 font-semibold text-lg">
+        ✔ {item}
+      </p>
+    </motion.div>
+  ))}
+</div>
 
-        <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition">
-          <p className="text-green-600 font-semibold text-lg">✔ 100% Organic</p>
-        </div>
+    </motion.div>
 
-        <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition">
-          <p className="text-green-600 font-semibold text-lg">✔ Chemical Free</p>
-        </div>
+    {/* RIGHT IMAGE (ANIMATED) */}
+  <motion.div
+  variants={slideRight}
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className="relative group"
+>
 
-        <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition">
-          <p className="text-green-600 font-semibold text-lg">✔ Nutrient Rich</p>
-        </div>
-
-        <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition">
-          <p className="text-green-600 font-semibold text-lg">✔ Improves Yield</p>
-          
-        </div>
-
-      </div>
-
-    </div>
-
-    {/* RIGHT IMAGE */}
-    <div className="relative group">
-
-      {/* Glow Background */}
       <div className="absolute -inset-2 bg-green-400/20 blur-2xl rounded-2xl"></div>
 
       <Image
@@ -345,83 +386,84 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
         className="relative rounded-2xl shadow-2xl object-cover transform group-hover:scale-105 transition duration-500"
       />
 
-    </div>
+    </motion.div>
 
   </div>
-
 </motion.section>
-
      
      
      
      
-
-   <motion.section
+<motion.section
   id="benefits"
-  variants={slideLeft}
   initial="hidden"
   whileInView="visible"
-  transition={{ duration: 0.7 }}
   viewport={{ once: true }}
+  transition={{ staggerChildren: 0.2 }}
   className="py-28 bg-gradient-to-b from-green-50 via-white to-background"
 >
 
   <div className="max-w-7xl mx-auto px-6">
 
-    {/* MAIN HEADING */}
-    <div className="text-center mb-20">
-     <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
-  Why Choose <span className="text-green-600">Agrivyn Organic Solutions</span>?
-</h2>
-      <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
-       Improve soil health, enhance plant growth, and achieve better results with our complete range of organic products.
-      </p>
-    </div>
+    {/* HEADING */}
+    <motion.div variants={slideUp} className="text-center mb-20">
 
-    {/* BENEFITS (IMAGE CARDS WITH OVERLAY) */}
+      <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
+        Why Choose <span className="text-green-600">Agrivyn Organic Solutions</span>?
+      </h2>
+
+      <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
+        Improve soil health, enhance plant growth, and achieve better results with our complete range of organic products.
+      </p>
+
+    </motion.div>
+
+    {/* IMAGE CARDS (LEFT + RIGHT ANIMATION) */}
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
 
       {[
-  {
-    img: "/benefit-1.avif",
-    icon: <Droplet className="w-8 h-8" />,
-    title: "Better Water Retention",
-    desc: "Maintains soil moisture and reduces frequent watering.",
-  },
-  {
-    img: "/benefit-2.webp",
-    icon: <TrendingUp className="w-8 h-8" />,
-    title: "Faster Plant Growth",
-    desc: "Boosts healthy growth with nutrient-rich organic inputs.",
-  },
-  {
-    img: "/benefit-3.webp",
-    icon: <Leaf className="w-8 h-8" />,
-    title: "Improves Soil Health",
-    desc: "Enhances soil structure and microbial activity naturally.",
-  },
-  {
-    img: "/benefit-4.jpg",
-    icon: <Zap className="w-8 h-8" />,
-    title: "Eco-Friendly Solution",
-    desc: "Safe, sustainable, and chemical-free for all crops.",
-  },
-].map((item, i) => (
-        <div
+        {
+          img: "/benefit-1.avif",
+          icon: <Droplet className="w-8 h-8" />,
+          title: "Better Water Retention",
+          desc: "Maintains soil moisture and reduces frequent watering.",
+        },
+        {
+          img: "/benefit-2.webp",
+          icon: <TrendingUp className="w-8 h-8" />,
+          title: "Faster Plant Growth",
+          desc: "Boosts healthy growth with nutrient-rich organic inputs.",
+        },
+        {
+          img: "/benefit-3.webp",
+          icon: <Leaf className="w-8 h-8" />,
+          title: "Improves Soil Health",
+          desc: "Enhances soil structure and microbial activity naturally.",
+        },
+        {
+          img: "/benefit-4.jpg",
+          icon: <Zap className="w-8 h-8" />,
+          title: "Eco-Friendly Solution",
+          desc: "Safe, sustainable, and chemical-free for all crops.",
+        },
+      ].map((item, i) => (
+        <motion.div
           key={i}
+          variants={cardReveal}
+          whileHover={{ scale: 1.05 }}
           className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500"
         >
 
-          {/* Image */}
+          {/* IMAGE */}
           <img
             src={item.img}
             className="h-56 w-full object-cover group-hover:scale-110 transition duration-700"
           />
 
-          {/* Dark Overlay */}
+          {/* OVERLAY */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition"></div>
 
-          {/* Content */}
+          {/* CONTENT */}
           <div className="absolute inset-0 flex flex-col justify-center items-center text-center text-white px-4">
 
             <div className="mb-3 text-green-400">
@@ -438,38 +480,40 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
 
           </div>
 
-        </div>
+        </motion.div>
       ))}
 
     </div>
 
-    {/* WHY CHOOSE US (GLASS STYLE CARDS) */}
+    {/* GLASS CARDS (STAGGER POP UP) */}
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
       {[
-  {
-    icon: <Award className="w-10 h-10" />,
-    title: "Premium Quality",
-    desc: "High-quality organic products for best performance.",
-  },
-  {
-    icon: <Zap className="w-10 h-10" />,
-    title: "Affordable Pricing",
-    desc: "Cost-effective solutions for farmers and gardeners.",
-  },
-  {
-    icon: <Truck className="w-10 h-10" />,
-    title: "Fast Delivery",
-    desc: "Reliable and timely delivery to your location.",
-  },
-  {
-    icon: <Leaf className="w-10 h-10" />,
-    title: "Wide Product Range",
-    desc: "Vermicompost, red soil, earthworms, and more.",
-  },
-].map((item, i) => (
-        <div
+        {
+          icon: <Award className="w-10 h-10" />,
+          title: "Premium Quality",
+          desc: "High-quality organic products for best performance.",
+        },
+        {
+          icon: <Zap className="w-10 h-10" />,
+          title: "Affordable Pricing",
+          desc: "Cost-effective solutions for farmers and gardeners.",
+        },
+        {
+          icon: <Truck className="w-10 h-10" />,
+          title: "Fast Delivery",
+          desc: "Reliable and timely delivery to your location.",
+        },
+        {
+          icon: <Leaf className="w-10 h-10" />,
+          title: "Wide Product Range",
+          desc: "Vermicompost, red soil, earthworms, and more.",
+        },
+      ].map((item, i) => (
+        <motion.div
           key={i}
+          variants={slideUp}
+          whileHover={{ scale: 1.05 }}
           className="group bg-white/70 backdrop-blur-md border border-green-100 rounded-2xl p-8 text-center shadow-md hover:shadow-2xl transition duration-300"
         >
 
@@ -485,7 +529,7 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
             {item.desc}
           </p>
 
-        </div>
+        </motion.div>
       ))}
 
     </div>
@@ -493,10 +537,6 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
   </div>
 
 </motion.section>
-
-
-
-
 
 
 <section className="scroll-mt-24 bg-green-900 overflow-hidden">
@@ -651,7 +691,7 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
       {/* Floating WhatsApp Button */}
    <button
   onClick={handleWhatsAppClick}
-  className="fixed bottom-6 right-6 z-50 flex items-center gap-3 
+  className="fixed bottom-6 right-6 z-50 flex items-center gap-2 
   bg-[#25D366] hover:bg-green-700 
   text-white px-5 py-3 md:px-6 md:py-4 
   rounded-full shadow-xl hover:shadow-2xl 
