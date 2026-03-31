@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScroll, useTransform } from "framer-motion";
+import { FaWhatsapp } from "react-icons/fa";
 import {
   Leaf,
   Droplet,
@@ -20,10 +24,51 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [current, setCurrent] = useState(0);
+  // ✅ CONTENT (ALL PRODUCTS)
+  const heroContent = [
+    {
+      title: "Premium Vermicompost",
+      highlight: "for Healthy Soil",
+      desc: "100% organic compost made from cow dung to improve soil fertility.",
+      image: "/hero1.jpg"
+    },
+    {
+      title: "Natural Red Soil",
+      highlight: "for Strong Roots",
+      desc: "Fertile and nutrient-rich soil ideal for all types of plants.",
+      image: "/red soi.webp"
+    },
+    {
+      title: "Live Earthworms",
+      highlight: "for Soil Health",
+      desc: "Improve soil aeration and boost natural plant growth.",
+      image: "/hero2.webp"
+    },
+    {
+      title: "Potting Mix Sand",
+      highlight: "for Better Drainage",
+      desc: "Prevents waterlogging and ensures healthy root development.",
+      image: "/mixsand.webp"
+    }
+  ];
 
+const slideLeft = {
+  hidden: { opacity: 0, x: -80 },
+  visible: { opacity: 1, x: 0 }
+};
+
+const slideRight = {
+  hidden: { opacity: 0, x: 80 },
+  visible: { opacity: 1, x: 0 }
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0 }
+};
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % 2);
+     setCurrent((prev) => (prev + 1) % heroContent.length);
     }, 5000);
 
     return () => clearInterval(interval);
@@ -37,107 +82,120 @@ export default function Home() {
     `https://wa.me/918317449865?text=${message}`,
     "_blank");
   };
+
+  const nextSlide = () => {
+  setCurrent((prev) => (prev + 1) % heroContent.length);
+};
+
+const prevSlide = () => {
+  setCurrent((prev) =>
+    prev === 0 ? heroContent.length - 1 : prev - 1
+  );
+};
+
    return (
 
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navbar */}
-     <nav className="fixed inset-x-0 top-0 z-50 bg-white/90 backdrop-blur-md shadow-md">
-  <div className="max-w-7xl mx-auto px-6 md:px-8">
-    <div className="flex items-center justify-between h-20"> {/* FIXED height */}
+   <div className="min-h-screen bg-background text-foreground pt-[72px]">
 
-      {/* Logo */}
-      <div className="flex items-center gap-3">
-        <Image
-          src="/agrivyn-logo.jpeg"
-          alt="Agrivyn"
-          width={140}
-          height={40}
-          priority
-        />
+<nav className="fixed top-0 inset-x-0 z-50">
+  
+  <div className="w-full">
+    
+    <div className="flex items-center justify-between h-[72px] px-5 md:px-8 
+bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
+
+      {/* LOGO (BIGGER) */}
+     <div className="flex items-center h-full">
+  <Image
+    src="/agrivyn-logo.jpeg"
+    alt="Agrivyn"
+    width={200}
+    height={60}
+    className="h-12 md:h-14 w-auto object-contain"
+    priority
+  />
+</div>
+
+      {/* MENU */}
+      <div className="hidden md:flex items-center gap-10 text-[20px] font-medium text-gray-700">
+
+        {["Home", "About", "Products", "Benefits"].map((item, i) => (
+          <a
+            key={i}
+            href={`#${item.toLowerCase()}`}
+            className="relative group hover:text-green-600 transition"
+          >
+            {item}
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-green-500 transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        ))}
+
       </div>
 
-      {/* Desktop Menu */}
-      <div className="hidden md:flex items-center gap-8 text-lg font-medium text-gray-700">
-        <a href="#home" className="hover:text-green-600">Home</a>
-        <a href="#about" className="hover:text-green-600">About</a>
-        <a href="#products" className="hover:text-green-600">Products</a>
-        <a href="#benefits" className="hover:text-green-600">Benefits</a>
-      </div>
-
-      {/* Desktop Button */}
+      {/* BUTTON (BIGGER) */}
       <div className="hidden md:flex">
-        <button
-          onClick={handleWhatsAppClick}
-          className="bg-green-600 hover:bg-green-700 text-white text-lg font-semibold px-5 py-2 rounded-full shadow"
-        >
-          Order
-        </button>
+     <button
+  onClick={handleWhatsAppClick}
+  className="bg-black text-white px-9 py-3 text-lg rounded-full font-semibold 
+  hover:bg-green-600 transition shadow-md"
+>
+  Order Now
+</button>
       </div>
 
-      {/* Mobile Menu Button */}
+      {/* MOBILE */}
       <button
         className="md:hidden text-3xl"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
-        ☰
+        {mobileMenuOpen ? "✕" : "☰"}
       </button>
 
     </div>
 
-    {/* Mobile Dropdown Menu */}
-   {mobileMenuOpen && (
-  <div className="md:hidden bg-white shadow-lg rounded-2xl mt-4 p-6">
+    {/* MOBILE MENU */}
+    {mobileMenuOpen && (
+      <div className="md:hidden bg-white shadow-lg p-5">
 
-    <div className="flex flex-col items-center space-y-5 text-lg font-semibold text-gray-700">
+        <div className="flex flex-col items-center gap-5 text-base font-medium text-gray-700">
 
-      <a href="#home" onClick={() => setMobileMenuOpen(false)}>
-        Home
-      </a>
+          {["Home", "About", "Products", "Benefits"].map((item, i) => (
+            <a
+              key={i}
+              href={`#${item.toLowerCase()}`}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
 
-      <a href="#about" onClick={() => setMobileMenuOpen(false)}>
-        About
-      </a>
+          <button
+            onClick={() => {
+              handleWhatsAppClick();
+              setMobileMenuOpen(false);
+            }}
+            className="bg-black text-white px-6 py-3 rounded-full w-full"
+          >
+            Order Now
+          </button>
 
-      <a href="#products" onClick={() => setMobileMenuOpen(false)}>
-        Products
-      </a>
+        </div>
 
-      <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>
-        Benefits
-      </a>
-
-      {/* Button */}
-      <button
-        onClick={() => {
-          handleWhatsAppClick();
-          setMobileMenuOpen(false);
-        }}
-        className="bg-green-600 text-white px-6 py-3 rounded-full w-full mt-4"
-      >
-        Order on WhatsApp
-      </button>
-
-    </div>
-
-  </div>
-)}
+      </div>
+    )}
 
   </div>
 </nav>
 
-
-
-
-
       {/* Hero Section */}
      {/* Hero Section */}
-<section id="home" className="relative h-screen overflow-hidden flex items-center justify-center text-white">
+<section id="home" className=" scroll-mt-24 relative h-screen overflow-hidden flex items-center justify-center text-white">
 
   {/* Single Background Image */}
   <div className="absolute inset-0">
     <Image
       key={current} // VERY IMPORTANT (forces image change cleanly)
-      src={current === 0 ? "/hero1.jpg" : "/hero2.webp"}
+      src={heroContent[current].image}
       alt="Agrivyn"
       fill
       priority
@@ -145,26 +203,46 @@ export default function Home() {
     />
     <div className="absolute inset-0 bg-black/60"></div>
   </div>
+  {/* Left Arrow */}
+<button
+  onClick={prevSlide}
+  className="absolute left-5 md:left-10 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition"
+>
+  <ChevronLeft size={40} />
+</button>
+
+{/* Right Arrow */}
+<button
+  onClick={nextSlide}
+  className="absolute right-5 md:right-10 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-md transition"
+>
+  <ChevronRight size={40} />
+</button>
 
   {/* Content */}
-  <div className="relative z-10 text-center px-6 max-w-3xl">
+ <motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="relative z-10 text-center px-6 max-w-3xl"
+>
 
     <h2 className="text-green-500 uppercase tracking-[0.3em] text-sm mb-4">
       AGRIVYN
     </h2>
-
+<p className="text-green-400 uppercase tracking-widest text-sm mb-3">
+  Rooted in Nature. Driven by Growth.
+</p>
     <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-      {current === 0 ? "Premium Vermicompost" : "Grow Better Plants"}
+     {heroContent[current % heroContent.length].title}
       <br />
       <span className="text-yellow-400">
-        {current === 0 ? "for Healthy Soil" : "Naturally & Effectively"}
+        {heroContent[current % heroContent.length].highlight}
       </span>
     </h1>
 
     <p className="mt-4 text-lg text-gray-300">
-      {current === 0
-        ? "100% organic compost made from cow dung to improve soil fertility."
-        : "Enhance plant growth with nutrient-rich and chemical-free compost."}
+      {heroContent[current % heroContent.length].desc}
     </p>
 
     <div className="mt-8">
@@ -175,10 +253,14 @@ export default function Home() {
         <MessageCircle className="w-5 h-5 mr-2" />
         Contact Us
       </Button>
+      
     </div>
 
-  </div>
+ </motion.div>
+  
 </section>
+
+
 
 
 
@@ -188,7 +270,13 @@ export default function Home() {
 
 
 {/* Welcome + About Section */}
-<section id="about" className="py-24 bg-gradient-to-b from-background to-green-50">
+<motion.section
+  id="about"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+  className="py-24 bg-gradient-to-b from-background to-green-50"
+>
 
   <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
 
@@ -196,28 +284,28 @@ export default function Home() {
     <div>
 
       {/* Small Title */}
-      <h3 className="text-green-600 uppercase tracking-[0.3em] text-sm mb-4">
-        Welcome to Agrivyn
-      </h3>
+   <h3 className="text-green-600 uppercase tracking-[0.3em] text-sm mb-4">
+  Welcome to Agrivyn
+</h3>
 
-      {/* Main Heading */}
-      <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 leading-tight">
-        Premium Organic Vermicompost
-        <br />
-        <span className="text-green-600">for Sustainable Farming</span>
-      </h2>
+<h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 leading-tight">
+  Complete Organic Growing Solutions
+  <br />
+  <span className="text-green-600">for Healthy Plants & Soil</span>
+</h2>
 
-      {/* Description */}
-      <p className="text-lg text-muted-foreground mb-5 leading-relaxed">
-        At Agrivyn, we produce high-quality vermicompost using natural cow dung
-        and eco-friendly processes. Our compost enriches soil fertility and
-        supports healthy plant growth without harmful chemicals.
-      </p>
+<p className="text-lg text-muted-foreground mb-5 leading-relaxed">
+  Agrivyn provides high-quality organic products including vermicompost,
+  red soil, earthworms, and potting mix essentials. Our solutions are
+  designed to improve soil fertility, support natural plant growth,
+  and promote sustainable farming practices.
+</p>
 
-      <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-        Designed for farmers, gardeners, and nurseries, our product helps
-        improve yield while maintaining soil health for long-term sustainability.
-      </p>
+<p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+  Whether you are a farmer, home gardener, or nursery owner, our products
+  help you grow stronger, healthier plants while maintaining long-term
+  soil health naturally and effectively.
+</p>
 
       {/* Highlights Cards */}
       <div className="grid grid-cols-2 gap-5">
@@ -236,6 +324,7 @@ export default function Home() {
 
         <div className="bg-white shadow-md rounded-xl p-4 hover:shadow-xl transition">
           <p className="text-green-600 font-semibold text-lg">✔ Improves Yield</p>
+          
         </div>
 
       </div>
@@ -249,7 +338,7 @@ export default function Home() {
       <div className="absolute -inset-2 bg-green-400/20 blur-2xl rounded-2xl"></div>
 
       <Image
-        src="/compost-about.jpg"
+        src="/garden3.avif"
         alt="Agrivyn Vermicompost"
         width={550}
         height={420}
@@ -260,24 +349,32 @@ export default function Home() {
 
   </div>
 
-</section>
+</motion.section>
 
      
      
      
      
 
-   <section id="benefits" className="py-28 bg-gradient-to-b from-green-50 via-white to-background">
+   <motion.section
+  id="benefits"
+  variants={slideLeft}
+  initial="hidden"
+  whileInView="visible"
+  transition={{ duration: 0.7 }}
+  viewport={{ once: true }}
+  className="py-28 bg-gradient-to-b from-green-50 via-white to-background"
+>
 
   <div className="max-w-7xl mx-auto px-6">
 
     {/* MAIN HEADING */}
     <div className="text-center mb-20">
-      <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
-        Why Choose <span className="text-green-600">Agrivyn Vermicompost</span>?
-      </h2>
+     <h2 className="text-4xl md:text-5xl font-extrabold text-foreground leading-tight">
+  Why Choose <span className="text-green-600">Agrivyn Organic Solutions</span>?
+</h2>
       <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
-        Improve soil health, increase crop yield, and grow naturally with our premium organic compost.
+       Improve soil health, enhance plant growth, and achieve better results with our complete range of organic products.
       </p>
     </div>
 
@@ -285,31 +382,31 @@ export default function Home() {
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
 
       {[
-        {
-          img: "/benefit-1.avif",
-          icon: <Droplet className="w-8 h-8" />,
-          title: "Retains Moisture",
-          desc: "Improves water retention and reduces irrigation needs.",
-        },
-        {
-          img: "/benefit-2.webp",
-          icon: <TrendingUp className="w-8 h-8" />,
-          title: "Increases Yield",
-          desc: "Boosts plant growth and crop productivity naturally.",
-        },
-        {
-          img: "/benefit-3.webp",
-          icon: <Leaf className="w-8 h-8" />,
-          title: "Improves Fertility",
-          desc: "Enriches soil with nutrients and microbial activity.",
-        },
-        {
-          img: "/benefit-4.jpg",
-          icon: <Zap className="w-8 h-8" />,
-          title: "Eco-Friendly",
-          desc: "100% natural and sustainable farming solution.",
-        },
-      ].map((item, i) => (
+  {
+    img: "/benefit-1.avif",
+    icon: <Droplet className="w-8 h-8" />,
+    title: "Better Water Retention",
+    desc: "Maintains soil moisture and reduces frequent watering.",
+  },
+  {
+    img: "/benefit-2.webp",
+    icon: <TrendingUp className="w-8 h-8" />,
+    title: "Faster Plant Growth",
+    desc: "Boosts healthy growth with nutrient-rich organic inputs.",
+  },
+  {
+    img: "/benefit-3.webp",
+    icon: <Leaf className="w-8 h-8" />,
+    title: "Improves Soil Health",
+    desc: "Enhances soil structure and microbial activity naturally.",
+  },
+  {
+    img: "/benefit-4.jpg",
+    icon: <Zap className="w-8 h-8" />,
+    title: "Eco-Friendly Solution",
+    desc: "Safe, sustainable, and chemical-free for all crops.",
+  },
+].map((item, i) => (
         <div
           key={i}
           className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500"
@@ -350,27 +447,27 @@ export default function Home() {
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
       {[
-        {
-          icon: <Award className="w-10 h-10" />,
-          title: "Premium Quality",
-          desc: "Carefully processed and tested for best results.",
-        },
-        {
-          icon: <Zap className="w-10 h-10" />,
-          title: "Affordable Pricing",
-          desc: "Best value for money across all quantities.",
-        },
-        {
-          icon: <Truck className="w-10 h-10" />,
-          title: "Reliable Delivery",
-          desc: "Safe and timely delivery to your location.",
-        },
-        {
-          icon: <Leaf className="w-10 h-10" />,
-          title: "100% Organic",
-          desc: "Chemical-free and safe for all crops.",
-        },
-      ].map((item, i) => (
+  {
+    icon: <Award className="w-10 h-10" />,
+    title: "Premium Quality",
+    desc: "High-quality organic products for best performance.",
+  },
+  {
+    icon: <Zap className="w-10 h-10" />,
+    title: "Affordable Pricing",
+    desc: "Cost-effective solutions for farmers and gardeners.",
+  },
+  {
+    icon: <Truck className="w-10 h-10" />,
+    title: "Fast Delivery",
+    desc: "Reliable and timely delivery to your location.",
+  },
+  {
+    icon: <Leaf className="w-10 h-10" />,
+    title: "Wide Product Range",
+    desc: "Vermicompost, red soil, earthworms, and more.",
+  },
+].map((item, i) => (
         <div
           key={i}
           className="group bg-white/70 backdrop-blur-md border border-green-100 rounded-2xl p-8 text-center shadow-md hover:shadow-2xl transition duration-300"
@@ -395,10 +492,14 @@ export default function Home() {
 
   </div>
 
-</section>
+</motion.section>
 
 
-<section className="bg-green-900 overflow-hidden">
+
+
+
+
+<section className="scroll-mt-24 bg-green-900 overflow-hidden">
 
   <div className="whitespace-nowrap py-10"> {/* increased height */}
 
@@ -439,113 +540,237 @@ export default function Home() {
 
 
 
+<motion.section
+  id="products"
+  variants={slideLeft}
+  initial="hidden"
+  whileInView="visible"
+  transition={{ duration: 0.7 }}
+  viewport={{ once: true }}
+  className="py-24 bg-gray-50"
+>
 
-<section id="products" className="py-24 bg-gray-50">
-
-  <div className="max-w-5xl mx-auto px-6 text-center">
+  <div className="max-w-7xl mx-auto px-6">
 
     {/* Heading */}
-    <h2 className="text-3xl md:text-4xl tracking-[0.2em] text-gray-600 mb-10">
-      FEATURED PRODUCTS
-    </h2>
+    <div className="text-center mb-16">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800">
+        Our <span className="text-green-600">Products</span>
+      </h2>
+      <p className="mt-4 text-lg text-gray-600">
+        Explore our range of organic solutions for healthy plant growth.
+      </p>
+    </div>
 
-    {/* Sub Text */}
-    <p className="inline-block text-lg md:text-xl text-gray-600 font-medium ">
-      New products are coming soon!
-    </p>
+    {/* Product Grid */}
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
+      {[
+        {
+          name: "Vermicompost",
+          img: "/comp.png",
+          desc: "Rich organic compost that improves soil fertility and plant growth.",
+        },
+        {
+          name: "Red Soil",
+          img: "/redsoil.png",
+          desc: "Natural fertile soil ideal for all types of plants and crops.",
+        },
+        {
+          name: "Earthworms",
+          img: "/earth.png",
+          desc: "Enhances soil aeration and supports organic farming.",
+        },
+        {
+          name: "Potting Mix Sand",
+          img: "/sandmix.jpg",
+          desc: "Improves drainage and prevents waterlogging in plants.",
+        },
+      ].map((product, i) => (
+
+        <motion.div
+  key={i}
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, delay: i * 0.1 }}
+  viewport={{ once: true }}
+  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group"
+>
+
+          {/* Image */}
+          <div className="overflow-hidden">
+            <img
+              src={product.img}
+              className="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
+            />
+          </div>
+
+          {/* Content */}
+          <div className="p-6 text-center">
+
+            <h3 className="text-xl font-semibold mb-3">
+              {product.name}
+            </h3>
+
+            <p className="text-gray-600 text-sm mb-5">
+              {product.desc}
+            </p>
+
+            {/* WhatsApp Button */}
+           
+
+          </div>
+
+        </motion.div>
+        
+
+      ))}
+
+    </div>
+<div className="text-center mt-16">
+  <button
+    onClick={() => {
+      const message = encodeURIComponent(
+        "Hello! I would like to know more about Agrivyn products and place an order."
+      );
+      window.open(`https://wa.me/918317449865?text=${message}`, "_blank");
+    }}
+    className="bg-green-600 hover:bg-green-700 px-10 py-4 rounded-full text-lg font-semibold shadow-lg transition transform hover:scale-105 active:scale-95"
+    >
+    Order Now
+  </button>
+</div>
   </div>
 
-</section>
-
+</motion.section>
 
 
 
 
 
       {/* Floating WhatsApp Button */}
-      <button
-        onClick={handleWhatsAppClick}
-        className="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 z-40 transform hover:scale-110"
-        aria-label="Contact on WhatsApp"
-      >
-        <MessageCircle className="w-6 h-6" />
-      </button>
+   <button
+  onClick={handleWhatsAppClick}
+  className="fixed bottom-6 right-6 z-50 flex items-center gap-3 
+  bg-[#25D366] hover:bg-green-700 
+  text-white px-5 py-3 md:px-6 md:py-4 
+  rounded-full shadow-xl hover:shadow-2xl 
+  transition-all duration-300 
+  transform hover:scale-105"
+>
+  {/* REAL WHATSAPP ICON */}
+  <FaWhatsapp className="w-7 h-7 md:w-8 md:h-8" />
+
+  {/* TEXT */}
+  
+</button>
+
+<div className="fixed bottom-6 right-6 z-40">
+  <div className="w-16 h-16 bg-green-500 rounded-full opacity-30 animate-ping"></div>
+</div>
 
 
+<footer className="relative text-gray-200">
 
+  {/* BACKGROUND IMAGE */}
+  <div className="absolute inset-0">
+    <Image
+      src="/footer-bg.jpg"   // 🔥 add this image in public folder
+      alt="footer background"
+      fill
+      className="object-cover"
+    />
+    <div className="absolute inset-0 bg-[#1f2a1f]/90 backdrop-blur-sm"></div>
+  </div>
 
-      {/* Footer */}
-   <footer className="bg-[#3f4a3c] text-gray-200 py-16">
+  {/* CONTENT */}
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    viewport={{ once: true }}
+    className="relative max-w-7xl mx-auto px-6 md:px-10 py-20"
+  >
 
-  <div className="max-w-7xl mx-auto px-6">
+    {/* GRID */}
+    <div className="grid md:grid-cols-3 gap-12 items-start">
 
-    <div className="grid md:grid-cols-3 gap-10 items-start">
-
-      {/* LEFT - LOGO + DESCRIPTION */}
+      {/* LEFT - BRAND */}
       <div>
-        <div className="flex items-center gap-3 mb-4">
-          <Image
-            src="/agrivyn-logo.jpeg"
-            alt="Agrivyn"
-            width={180}
-            height={60}
-          />
+        <Image
+          src="/agrivyn-logo.jpeg"
+          alt="Agrivyn"
+          width={170}
+          height={60}
+          className="mb-5"
+        />
+
+        <p className="text-gray-300 leading-relaxed mb-5">
+          Soil & organic growing solutions including vermicompost, red soil,
+          earthworms, and potting mix for healthy plant growth.
+        </p>
+
+        <p className="text-green-400 font-semibold tracking-wide">
+          Rooted in Nature. Driven by Growth.
+        </p>
+      </div>
+
+      {/* CENTER - QUICK LINKS */}
+      <div>
+        <h4 className="text-xl font-semibold mb-5 text-white">
+          Quick Links
+        </h4>
+
+        <div className="flex flex-col gap-3 text-gray-300">
+
+          {["Home", "About", "Products", "Benefits"].map((item, i) => (
+            <a
+              key={i}
+              href={`#${item.toLowerCase()}`}
+              className="hover:text-green-400 transition duration-300"
+            >
+              {item}
+            </a>
+          ))}
+
+        </div>
+      </div>
+
+      {/* RIGHT - CONTACT */}
+      <div>
+        <h4 className="text-xl font-semibold mb-5 text-white">
+          Contact
+        </h4>
+
+        <div className="space-y-3 text-gray-300">
+          <p>📞 +91 8317449865</p>
+          <p>📧 orders@agrivyn.com</p>
+          <p>🌐 agrivyn.com</p>
+          <p>📸 @agrivyn</p>
         </div>
 
-        <p className="text-lg leading-relaxed text-gray-300 mb-3">
-          Our vermicompost is produced with premium quality standards and is
-          widely used for agriculture, gardening, nurseries, and plantations.
-        </p>
-
-        <a href="#about" className="text-sm font-semibold hover:underline">
-          READ MORE
-        </a>
-      </div>
-
-      {/* CENTER - EXPLORE */}
-      <div className="border-l border-white/20 pl-8">
-        <h4 className="text-lg font-semibold mb-4 text-white">Explore</h4>
-
-        <ul className="space-y-3 text-lg">
-          <li><a href="#about" className="hover:text-white">About Us</a></li>
-          <li><a href="#products" className="hover:text-white">Products</a></li>
-          <li><a href="#gallery" className="hover:text-white">Gallery</a></li>
-          <li><a href="#contact" className="hover:text-white">Contact Us</a></li>
-        </ul>
-      </div>
-
-      {/* RIGHT - CONTACT INFO */}
-      <div>
-        <h4 className="text-lg font-semibold mb-4 text-white">Contact Info</h4>
-
-       
-
-        <p className="text-lg mb-2">
-          <span className="font-semibold text-white">PHONE:</span><br />
-          +91 83174 49865
-        </p>
-
-      
-
-        {/* WhatsApp Button */}
-        <button
-          onClick={handleWhatsAppClick}
-          className="mt-3 bg-green-500 hover:bg-green-600 px-5 py-2 rounded-full text-lg font-semibold"
-        >
-          Contact on WhatsApp
-        </button>
+        {/* BUTTON */}
+        <div className="mt-6">
+          <button
+            onClick={handleWhatsAppClick}
+            className="bg-gradient-to-r from-green-500 to-green-700 
+            hover:from-green-600 hover:to-green-800
+            px-8 py-3 rounded-full text-lg font-semibold shadow-lg 
+            transition transform hover:scale-105"
+          >
+            Order on WhatsApp
+          </button>
+        </div>
       </div>
 
     </div>
 
-    {/* Bottom */}
-    <div className="border-t border-white/20 mt-12 pt-6 text-center text-sm text-gray-300">
+    {/* DIVIDER */}
+    <div className="border-t border-white/20 mt-14 pt-6 text-center text-sm text-gray-400">
       © {new Date().getFullYear()} Agrivyn. All Rights Reserved.
     </div>
 
-  </div>
-
+  </motion.div>
 </footer>
     </div>
   );
