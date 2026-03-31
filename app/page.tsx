@@ -455,10 +455,14 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
         >
 
           {/* IMAGE */}
-          <img
-            src={item.img}
-            className="h-56 w-full object-cover group-hover:scale-110 transition duration-700"
-          />
+          <Image
+  src={item.img}
+  alt={item.title}
+  width={400}
+  height={300}
+  sizes="(max-width: 768px) 100vw, 25vw"
+  className="h-56 w-full object-cover group-hover:scale-110 transition duration-700"
+/>
 
           {/* OVERLAY */}
           <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition"></div>
