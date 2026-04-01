@@ -742,7 +742,7 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
       {/* LEFT - BRAND */}
       <div>
         <Image
-          src="/1.png"
+          src="/2.png"
           alt="Agrivyn"
           width={170}
           height={60}
