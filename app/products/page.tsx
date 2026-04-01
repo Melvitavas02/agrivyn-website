@@ -13,11 +13,11 @@ const products = [
     desc: "Nutrient-rich organic fertilizer produced by earthworms. Improves soil health and plant growth.",
     features: ["Improves Soil Structure", "Enhances Water Retention", "100% Organic"],
     pricing: [
-      { size: "1 Kg", price: "₹30" },
-      { size: "5 Kg", price: "₹120" },
-      { size: "10 Kg", price: "₹220" },
-      { size: "25 Kg", price: "₹500" },
-      { size: "50 Kg", price: "₹900" },
+      { size: "1 Kg" },
+      { size: "5 Kg" },
+      { size: "10 Kg" },
+      { size: "25 Kg" },
+      { size: "50 Kg" },
     ],
   },
   {
@@ -28,11 +28,11 @@ const products = [
     desc: "Rich in iron oxide with excellent drainage. Ideal for gardening and landscaping.",
     features: ["Rich in Iron Oxide", "Excellent Drainage", "Ideal for Construction"],
     pricing: [
-      { size: "5 Kg", price: "₹40" },
-      { size: "10 Kg", price: "₹70" },
-      { size: "25 Kg", price: "₹150" },
-      { size: "50 Kg", price: "₹280" },
-      { size: "1 Ton", price: "₹4500" },
+       { size: "1 Kg" },
+      { size: "5 Kg" },
+      { size: "10 Kg" },
+      { size: "25 Kg" },
+      { size: "50 Kg" },
     ],
   },
   {
@@ -43,10 +43,10 @@ const products = [
     desc: "Healthy composting worms that improve soil aeration and organic farming.",
     features: ["Natural Composting", "Soil Aeration", "Waste Recycling"],
     pricing: [
-      { size: "250 g", price: "₹150" },
-      { size: "500 g", price: "₹250" },
-      { size: "1 Kg", price: "₹450" },
-      { size: "5 Kg", price: "₹2000" },
+      { size: "1/2 kg" },
+      
+      { size: "1 Kg" },
+      
     ],
   },
   {
@@ -57,7 +57,11 @@ const products = [
     desc: "Clean river sand for potting mix and construction use.",
     features: ["Improves Aeration", "Consistent Texture", "Multi-purpose"],
     pricing: [
-      { size: "5 Kg", price: "₹150" },
+        { size: "1 Kg" },
+      { size: "5 Kg" },
+      { size: "10 Kg" },
+      { size: "25 Kg" },
+      { size: "50 Kg" },
     ],
   },
 ];
@@ -136,23 +140,23 @@ export default function ProductsPage() {
               </div>
 
               {/* PRICING */}
-              <div className="border rounded-xl overflow-hidden mb-6">
-                <div className="bg-gray-100 px-4 py-2 font-semibold text-sm">
-                  BAG / KG — PRICING
-                </div>
+              {/* AVAILABLE SIZES */}
+<div className="border rounded-xl overflow-hidden mb-6">
+  <div className="bg-gray-100 px-4 py-2 font-semibold text-sm">
+    AVAILABLE SIZES
+  </div>
 
-                {product.pricing.map((p, i) => (
-                  <div
-                    key={i}
-                    className="flex justify-between px-4 py-2 border-t text-sm"
-                  >
-                    <span>{p.size}</span>
-                    <span className="font-semibold text-green-700">
-                      {p.price}
-                    </span>
-                  </div>
-                ))}
-              </div>
+  <div className="flex flex-wrap gap-3 p-4">
+    {product.pricing.map((p, i) => (
+      <span
+        key={i}
+        className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium"
+      >
+        {p.size}
+      </span>
+    ))}
+  </div>
+</div>
 
               {/* BUTTON */}
               <button className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-medium transition">
