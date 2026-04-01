@@ -8,6 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion,Variants } from "framer-motion";
 
 import { FaWhatsapp } from "react-icons/fa";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 import {
   Leaf,
   Droplet,
@@ -19,6 +20,7 @@ import {
   Menu,
   X,
 } from 'lucide-react';
+import Link from "next/link";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -128,101 +130,12 @@ const prevSlide = () => {
 
    return (
 
-   <div className="min-h-screen bg-background text-foreground pt-[72px]">
+  <div className="min-h-screen bg-background text-foreground">
 
-<nav className="fixed top-0 inset-x-0 z-50">
-  
-  <div className="w-full">
-    
-    <div className="flex items-center justify-between h-[90px] px-5 md:px-8 
-bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
-
-      {/* LOGO (BIGGER) */}
-     <div className="flex items-center h-full">
-  <Image
-    src="/1.png"
-    alt="Agrivyn"
-    width={220}
-    height={80}
-    className="h-18 sm:h-20 md:h-30 w-auto object-contain mt-1"
-    priority
-  />
-</div>
-
-      {/* MENU */}
-      <div className="hidden md:flex items-center gap-10 text-[20px] font-medium text-gray-700">
-
-        {["Home", "About", "Products", "Benefits"].map((item, i) => (
-          <a
-            key={i}
-            href={`#${item.toLowerCase()}`}
-            className="relative group hover:text-green-600 transition"
-          >
-            {item}
-            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-green-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-        ))}
-
-      </div>
-
-      {/* BUTTON (BIGGER) */}
-      <div className="hidden md:flex">
-     <button
-  onClick={handleWhatsAppClick}
-  className="bg-black text-white px-9 py-3 text-lg rounded-full font-semibold 
-  hover:bg-green-600 transition shadow-md"
->
-  Order Now
-</button>
-      </div>
-
-      {/* MOBILE */}
-      <button
-        className="md:hidden text-3xl"
-        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-      >
-        {mobileMenuOpen ? "✕" : "☰"}
-      </button>
-
-    </div>
-
-    {/* MOBILE MENU */}
-    {mobileMenuOpen && (
-      <div className="md:hidden bg-white shadow-lg p-5">
-
-        <div className="flex flex-col items-center gap-5 text-base font-medium text-gray-700">
-
-          {["Home", "About", "Products", "Benefits"].map((item, i) => (
-            <a
-              key={i}
-              href={`#${item.toLowerCase()}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item}
-            </a>
-          ))}
-
-          <button
-            onClick={() => {
-              handleWhatsAppClick();
-              setMobileMenuOpen(false);
-            }}
-            className="bg-black text-white px-6 py-3 rounded-full w-full"
-          >
-            Order Now
-          </button>
-
-        </div>
-
-      </div>
-    )}
-
-  </div>
-</nav>
 
       {/* Hero Section */}
      {/* Hero Section */}
-<section id="home" className=" scroll-mt-24 relative h-screen overflow-hidden flex items-center justify-center text-white">
+<section id="home" className=" h-[calc(100vh-70px)] scroll-mt-24 relative h-screen overflow-hidden flex items-center justify-center text-white">
 
   {/* Single Background Image */}
   <div className="absolute inset-0">
@@ -609,68 +522,80 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
     {/* Product Grid */}
     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-      {[
-        {
-          name: "Vermicompost",
-          img: "/comp.png",
-          desc: "Rich organic compost that improves soil fertility and plant growth.",
-        },
-        {
-          name: "Red Soil",
-          img: "/redsoil.png",
-          desc: "Natural fertile soil ideal for all types of plants and crops.",
-        },
-        {
-          name: "Earthworms",
-          img: "/earth.png",
-          desc: "Enhances soil aeration and supports organic farming.",
-        },
-        {
-          name: "Potting Mix Sand",
-          img: "/sandmix.jpg",
-          desc: "Improves drainage and prevents waterlogging in plants.",
-        },
-      ].map((product, i) => (
+  {[
+    {
+      name: "Vermicompost",
+      slug: "vermicompost",
+      img: "/comp.png",
+      desc: "Rich organic compost that improves soil fertility and plant growth.",
+    },
+    {
+      name: "Red Soil",
+      slug: "red-soil",
+      img: "/redsoil.png",
+      desc: "Natural fertile soil ideal for all types of plants and crops.",
+    },
+    {
+      name: "Earthworms",
+      slug: "earthworms",
+      img: "/earth.png",
+      desc: "Enhances soil aeration and supports organic farming.",
+    },
+    {
+      name: "Potting Mix Sand",
+      slug: "potting-mix-sand",
+      img: "/sandmix.jpg",
+      desc: "Improves drainage and prevents waterlogging in plants.",
+    },
+  ].map((product, i) => (
 
-        <motion.div
-  key={i}
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.5, delay: i * 0.1 }}
-  viewport={{ once: true }}
-  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group"
->
+    <Link key={i} href="/products">
 
-          {/* Image */}
-          <div className="overflow-hidden">
-            <img
-              src={product.img}
-              className="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
-            />
-          </div>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: i * 0.1 }}
+        viewport={{ once: true }}
+        className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition duration-300 group cursor-pointer"
+      >
 
-          {/* Content */}
-          <div className="p-6 text-center">
+        {/* Image */}
+        <div className="overflow-hidden">
+          <img
+            src={product.img}
+            className="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
+          />
+        </div>
 
-            <h3 className="text-xl font-semibold mb-3">
-              {product.name}
-            </h3>
+        {/* Content */}
+        <div className="p-6 text-center">
 
-            <p className="text-gray-600 text-sm mb-5">
-              {product.desc}
-            </p>
+          <h3 className="text-xl font-semibold mb-3">
+            {product.name}
+          </h3>
 
-            {/* WhatsApp Button */}
-           
+          <p className="text-gray-600 text-sm mb-3">
+            {product.desc}
+          </p>
 
-          </div>
+          {/* Click hint */}
+          <p className="text-green-600 text-sm font-medium">
+            View Details →
+          </p>
 
-        </motion.div>
-        
+        </div>
 
-      ))}
+      </motion.div>
 
-    </div>
+    </Link>
+
+  ))}
+
+</div>
+
+
+
+
 <div className="text-center mt-16">
   <button
     onClick={() => {
@@ -714,108 +639,8 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
 </div>
 
 
-<footer className="relative text-gray-200">
 
-  {/* BACKGROUND IMAGE */}
-  <div className="absolute inset-0">
-    <Image
-      src="/footer-bg.jpg"   // 🔥 add this image in public folder
-      alt="footer background"
-      fill
-      className="object-cover"
-    />
-    <div className="absolute inset-0 bg-[#1f2a1f]/90 backdrop-blur-sm"></div>
-  </div>
 
-  {/* CONTENT */}
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8 }}
-    viewport={{ once: true }}
-    className="relative max-w-7xl mx-auto px-6 md:px-10 py-20"
-  >
-
-    {/* GRID */}
-    <div className="grid md:grid-cols-3 gap-12 items-start">
-
-      {/* LEFT - BRAND */}
-      <div>
-        <Image
-          src="/2.png"
-          alt="Agrivyn"
-          width={170}
-          height={60}
-          className="mb-5"
-        />
-
-        <p className="text-gray-300 leading-relaxed mb-5">
-          Soil & organic growing solutions including vermicompost, red soil,
-          earthworms, and potting mix for healthy plant growth.
-        </p>
-
-        <p className="text-green-400 font-semibold tracking-wide">
-          Rooted in Nature. Driven by Growth.
-        </p>
-      </div>
-
-      {/* CENTER - QUICK LINKS */}
-      <div>
-        <h4 className="text-xl font-semibold mb-5 text-white">
-          Quick Links
-        </h4>
-
-        <div className="flex flex-col gap-3 text-gray-300">
-
-          {["Home", "About", "Products", "Benefits"].map((item, i) => (
-            <a
-              key={i}
-              href={`#${item.toLowerCase()}`}
-              className="hover:text-green-400 transition duration-300"
-            >
-              {item}
-            </a>
-          ))}
-
-        </div>
-      </div>
-
-      {/* RIGHT - CONTACT */}
-      <div>
-        <h4 className="text-xl font-semibold mb-5 text-white">
-          Contact
-        </h4>
-
-        <div className="space-y-3 text-gray-300">
-          <p>📞 +91 8317449865</p>
-          <p>📧 orders@agrivyn.com</p>
-          <p>🌐 agrivyn.com</p>
-          <p>📸 @agrivyn</p>
-        </div>
-
-        {/* BUTTON */}
-        <div className="mt-6">
-          <button
-            onClick={handleWhatsAppClick}
-            className="bg-gradient-to-r from-green-500 to-green-700 
-            hover:from-green-600 hover:to-green-800
-            px-8 py-3 rounded-full text-lg font-semibold shadow-lg 
-            transition transform hover:scale-105"
-          >
-            Order on WhatsApp
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    {/* DIVIDER */}
-    <div className="border-t border-white/20 mt-14 pt-6 text-center text-sm text-gray-400">
-      © {new Date().getFullYear()} Agrivyn. All Rights Reserved.
-    </div>
-
-  </motion.div>
-</footer>
     </div>
   );
 }
