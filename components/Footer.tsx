@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 
@@ -39,10 +39,11 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-3 text-gray-300 text-base md:text-lg">
-              <li><a href="#home" className="hover:text-orange-400 transition">Home</a></li>
-              <li><a href="#about" className="hover:text-orange-400 transition">About Us</a></li>
-              <li><a href="#products" className="hover:text-orange-400 transition">Products</a></li>
-              <li><a href="#benefits" className="hover:text-orange-400 transition">Benefits</a></li>
+              <li><Link href="/#home" className="hover:text-orange-400 transition">Home</Link></li>
+              <li><Link href="/#about" className="hover:text-orange-400 transition">About Us</Link></li>
+              <li><Link href="/products" className="hover:text-orange-400 transition">Products</Link></li>
+              <li>
+<Link href="/#benefits" className="hover:text-orange-400 transition">Benefits</Link></li>
             </ul>
           </div>
 
@@ -53,13 +54,21 @@ export default function Footer() {
             </h3>
 
             <ul className="space-y-3 text-gray-300 text-base md:text-lg">
-              {["Vermicompost", "Red Soil", "Earthworms", "Potting Mix Sand"].map((item, i) => (
-                <li key={i}>
-                  <a href="#products" className="hover:text-orange-400 transition">
-                    {item}
-                  </a>
-                </li>
-              ))}
+             {[
+  { name: "Vermicompost", link: "/products#vermicompost" },
+  { name: "Red Soil", link: "/products#red-soil" },
+  { name: "Earthworms", link: "/products#earthworms" },
+  { name: "Potting Mix Sand", link: "/products#potting-mix-sand" },
+].map((item, i) => (
+  <li key={i}>
+    <Link
+      href={item.link}
+      className="hover:text-orange-400 transition"
+    >
+      {item.name}
+    </Link>
+  </li>
+))}
             </ul>
           </div>
 

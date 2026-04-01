@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -73,7 +73,12 @@ export default function ProductsPage() {
 
       {/* HEADER */}
       <div className="max-w-6xl mx-auto mb-20">
-        <p className="text-sm text-gray-500 mb-2">← Back to Home</p>
+        <Link
+  href="/#home"
+ className="text-sm text-gray-500 mb-2 inline-block hover:text-green-600 transition font-medium"
+>
+  ← Back to Home
+</Link>
 
         <h1 className="text-5xl font-bold mb-4 text-gray-800">
           Our Products
