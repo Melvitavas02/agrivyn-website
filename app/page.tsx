@@ -134,17 +134,17 @@ const prevSlide = () => {
   
   <div className="w-full">
     
-    <div className="flex items-center justify-between h-[72px] px-5 md:px-8 
+    <div className="flex items-center justify-between h-[90px] px-5 md:px-8 
 bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
 
       {/* LOGO (BIGGER) */}
      <div className="flex items-center h-full">
   <Image
-    src="/agrivyn-logo.jpeg"
+    src="/1.png"
     alt="Agrivyn"
-    width={200}
-    height={60}
-    className="h-12 md:h-14 w-auto object-contain"
+    width={220}
+    height={80}
+    className="h-18 sm:h-20 md:h-30 w-auto object-contain mt-1"
     priority
   />
 </div>
@@ -742,7 +742,7 @@ bg-white/95 backdrop-blur-md shadow-md border-b border-gray-200">
       {/* LEFT - BRAND */}
       <div>
         <Image
-          src="/agrivyn-logo.jpeg"
+          src="/1.png"
           alt="Agrivyn"
           width={170}
           height={60}
