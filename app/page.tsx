@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion,Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 import { FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
@@ -32,13 +32,13 @@ export default function Home() {
       title: "Premium Vermicompost",
       highlight: "for Healthy Soil",
       desc: "100% organic compost made from cow dung to improve soil fertility.",
-      image: "/hero1.jpg"
+      image: "/hero1.webp"
     },
     {
       title: "Natural Red Soil",
       highlight: "for Strong Roots",
       desc: "Fertile and nutrient-rich soil ideal for all types of plants.",
-      image: "/red soi.webp"
+      image: "/redsoil.webp"
     },
     {
       title: "Live Earthworms",
@@ -166,6 +166,7 @@ const prevSlide = () => {
 </button>
 
   {/* Content */}
+  
  <motion.div
   initial={{ opacity: 0, y: 40 }}
   animate={{ opacity: 1, y: 0 }}
@@ -292,7 +293,7 @@ const prevSlide = () => {
       <div className="absolute -inset-2 bg-green-400/20 blur-2xl rounded-2xl"></div>
 
       <Image
-        src="/garden3.avif"
+        src="/garden3.webp"
         alt="Agrivyn Vermicompost"
         width={550}
         height={420}
@@ -336,7 +337,7 @@ const prevSlide = () => {
 
       {[
         {
-          img: "/benefit-1.avif",
+          img: "/benefit-1.webp",
           icon: <Droplet className="w-8 h-8" />,
           title: "Better Water Retention",
           desc: "Maintains soil moisture and reduces frequent watering.",
@@ -354,7 +355,7 @@ const prevSlide = () => {
           desc: "Enhances soil structure and microbial activity naturally.",
         },
         {
-          img: "/benefit-4.jpg",
+          img: "/benefit-4.webp",
           icon: <Zap className="w-8 h-8" />,
           title: "Eco-Friendly Solution",
           desc: "Safe, sustainable, and chemical-free for all crops.",

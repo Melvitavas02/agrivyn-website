@@ -9,7 +9,7 @@ const products = [
     title: "Vermicompost",
     tag: "RICH IN NUTRIENTS",
     badge: "Best Seller",
-    img: "/compost-bags.jpg",
+    img: "/compost-bags.webp",
     desc: "Nutrient-rich organic fertilizer produced by earthworms. Improves soil health and plant growth.",
     features: ["Improves Soil Structure", "Enhances Water Retention", "100% Organic"],
     pricing: [
@@ -24,7 +24,7 @@ const products = [
     title: "Red Soil",
     tag: "NATURAL & FERTILE",
     badge: "Premium",
-    img: "/prored.jpg",
+    img: "/prored.webp",
     desc: "Rich in iron oxide with excellent drainage. Ideal for gardening and landscaping.",
     features: ["Rich in Iron Oxide", "Excellent Drainage", "Ideal for Construction"],
     pricing: [
@@ -39,7 +39,7 @@ const products = [
     title: "Earthworms",
     tag: "SOIL AERATORS",
     badge: "Live Stock",
-    img: "/proearth.jpg",
+    img: "/proearth.webp",
     desc: "Healthy composting worms that improve soil aeration and organic farming.",
     features: ["Natural Composting", "Soil Aeration", "Waste Recycling"],
     pricing: [
@@ -53,7 +53,7 @@ const products = [
     title: "Potting Mix Sand",
     tag: "IMPROVES DRAINAGE",
     badge: "Bulk Available",
-    img: "/prosand.jpg",
+    img: "/prosand.webp",
     desc: "Clean river sand for potting mix and construction use.",
     features: ["Improves Aeration", "Consistent Texture", "Multi-purpose"],
     pricing: [
@@ -164,9 +164,18 @@ export default function ProductsPage() {
 </div>
 
               {/* BUTTON */}
-              <button className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-medium transition">
-                Order on WhatsApp
-              </button>
+           <div className="relative z-50">
+  <a
+    href={`https://wa.me/918317449865?text=${encodeURIComponent(
+      `Hello! I would like to order ${product.title}.`
+    )}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-medium transition"
+  >
+    Order on WhatsApp
+  </a>
+</div>
 
             </div>
           </div>

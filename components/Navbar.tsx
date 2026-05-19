@@ -15,7 +15,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/70 border-b border-green-100 shadow-sm">
+    <nav className="fixed top-0 inset-x-0 z-50 bg-white border-b border-green-100 shadow-sm">
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-[80px] flex items-center justify-between">
 
@@ -112,7 +112,7 @@ export default function Navbar() {
 
         {/* MOBILE ICON */}
         <button
-          className="md:hidden text-2xl"
+  className="md:hidden flex items-center justify-center text-3xl w-12 h-12 shrink-0"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? "✕" : "☰"}
@@ -120,14 +120,25 @@ export default function Navbar() {
       </div>
 
       {/* MOBILE MENU */}
-      {mobileMenuOpen && (
+     <div
+className={`md:hidden overflow-hidden transition-all duration-200 ${
+mobileMenuOpen
+? "max-h-[500px] opacity-100"
+: "max-h-0 opacity-0"
+}`}
+>
         <div className="md:hidden bg-white shadow-xl p-6">
           <div className="flex flex-col gap-5 text-gray-700 text-lg">
 
-           <Link href="/#home">Home</Link>
-<Link href="/#about">About</Link>
-<Link href="/#benefits">Benefits</Link>
-            <Link href="/products">Products</Link>
+          <Link href="#home" onClick={()=>setMobileMenuOpen(false)}>Home</Link>
+<Link
+ href="#about"
+ onClick={() => setMobileMenuOpen(false)}
+>
+ About
+</Link>
+<Link href="#benefits" onClick={()=>setMobileMenuOpen(false)}>Benefits</Link>
+            <Link href="#products" onClick={()=>setMobileMenuOpen(false)}>Products</Link>
 
             <button
               onClick={handleWhatsAppClick}
@@ -138,7 +149,7 @@ export default function Navbar() {
 
           </div>
         </div>
-      )}
+      </div>
     </nav>
   );
 }
