@@ -119,37 +119,63 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU */}
-     <div
-className={`md:hidden overflow-hidden transition-all duration-200 ${
-mobileMenuOpen
-? "max-h-[500px] opacity-100"
-: "max-h-0 opacity-0"
-}`}
+     {/* MOBILE MENU */}
+<div
+  className={`md:hidden overflow-hidden transition-all duration-200 ${
+    mobileMenuOpen
+      ? "max-h-[500px] opacity-100"
+      : "max-h-0 opacity-0"
+  }`}
 >
-        <div className="md:hidden bg-white shadow-xl p-6">
-          <div className="flex flex-col gap-5 text-gray-700 text-lg">
+  <div className="bg-white shadow-xl p-6">
+    <div className="flex flex-col gap-5 text-gray-700 text-lg">
 
-          <Link href="#home" onClick={()=>setMobileMenuOpen(false)}>Home</Link>
-<Link
- href="#about"
- onClick={() => setMobileMenuOpen(false)}
->
- About
-</Link>
-<Link href="#benefits" onClick={()=>setMobileMenuOpen(false)}>Benefits</Link>
-            <Link href="#products" onClick={()=>setMobileMenuOpen(false)}>Products</Link>
+      {/* HOME */}
+      <Link
+        href="/#home"
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        Home
+      </Link>
 
-            <button
-              onClick={handleWhatsAppClick}
-              className="bg-green-600 text-white py-3 rounded-lg mt-4"
-            >
-              Order Now
-            </button>
+      {/* ABOUT */}
+      <Link
+        href="/#about"
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        About
+      </Link>
 
-          </div>
-        </div>
-      </div>
+      {/* BENEFITS */}
+      <Link
+        href="/#benefits"
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        Benefits
+      </Link>
+
+      {/* PRODUCTS */}
+      <Link
+        href="/products"
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        Products
+      </Link>
+
+      {/* ORDER */}
+      <button
+        onClick={() => {
+          setMobileMenuOpen(false);
+          handleWhatsAppClick();
+        }}
+        className="bg-green-600 text-white py-3 rounded-lg mt-4"
+      >
+        Order Now
+      </button>
+
+    </div>
+  </div>
+</div>
     </nav>
   );
 }
