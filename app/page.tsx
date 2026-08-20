@@ -138,17 +138,34 @@ const prevSlide = () => {
 <section id="home" className=" h-[calc(100vh-70px)] scroll-mt-24 relative h-screen overflow-hidden flex items-center justify-center text-white">
 
   {/* Single Background Image */}
-  <div className="absolute inset-0">
-    <Image
-      key={current} // VERY IMPORTANT (forces image change cleanly)
-      src={heroContent[current].image}
-      alt="Agrivyn"
-      fill
-      priority
-      className="object-cover animate-zoom"
-    />
-    <div className="absolute inset-0 bg-black/60"></div>
-  </div>
+  {/* HERO BACKGROUND SLIDER */}
+<div className="absolute inset-0 overflow-hidden">
+
+  {heroContent.map((hero, index) => (
+    <div
+      key={hero.image}
+      className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+        current === index ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      <Image
+        src={hero.image}
+        alt={hero.title}
+        fill
+        loading="eager"
+        sizes="100vw"
+        quality={80}
+        className={`object-cover ${
+          current === index ? "animate-zoom" : ""
+        }`}
+      />
+    </div>
+  ))}
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-black/60 z-10"></div>
+
+</div>
   {/* Left Arrow */}
 <button
   onClick={prevSlide}
